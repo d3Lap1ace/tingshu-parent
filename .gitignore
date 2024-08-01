@@ -1,0 +1,18 @@
+# Project exclude paths
+/common/common-util/target/
+/common/rabbit-util/target/
+/common/service-util/target/
+/model/target/
+/server-gateway/target/
+/service/service-account/target/
+/service/service-album/target/
+/service/service-dispatch/target/
+/service/service-order/target/
+/service/service-payment/target/
+/service/service-search/target/
+/service/service-user/target/
+/service-client/service-account-client/target/
+/service-client/service-album-client/target/
+/service-client/service-order-client/target/
+/service-client/service-search-client/target/
+/service-client/service-user-client/target/
