@@ -4,7 +4,7 @@
 
 <mapper namespace="com.atguigu.tingshu.user.mapper.UserInfoMapper">
 
-	<resultMap id="userInfoMap" type="com.atguigu.tingshu.model.user.UserInfo" autoMapping="true">
+	<resultMap id="userInfoMap" type="com.impower.tingshu.model.user.UserInfo" autoMapping="true">
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->

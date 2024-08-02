@@ -4,7 +4,7 @@
 
 <mapper namespace="com.atguigu.tingshu.account.mapper.UserAccountDetailMapper">
 
-	<resultMap id="RechargeInfoMap" type="com.atguigu.tingshu.model.account.UserAccountDetail" autoMapping="true">
+	<resultMap id="RechargeInfoMap" type="com.impower.tingshu.model.account.UserAccountDetail" autoMapping="true">
 	</resultMap>
 
 	<sql id="columns">
