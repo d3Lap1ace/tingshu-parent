@@ -1,11 +1,11 @@
 package com.impower.tingshu.album.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.impower.tingshu.album.mapper.BaseCategory1Mapper;
-import com.impower.tingshu.album.mapper.BaseCategory2Mapper;
-import com.impower.tingshu.album.mapper.BaseCategory3Mapper;
-import com.impower.tingshu.album.mapper.BaseCategoryViewMapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.impower.tingshu.album.mapper.*;
 import com.impower.tingshu.album.service.BaseCategoryService;
+import com.impower.tingshu.model.album.BaseAttribute;
+import com.impower.tingshu.model.album.BaseAttributeValue;
 import com.impower.tingshu.model.album.BaseCategory1;
 import com.impower.tingshu.model.album.BaseCategoryView;
 import com.impower.tingshu.vo.album.AlbumListVo;
@@ -34,6 +34,10 @@ public class BaseCategoryServiceImpl extends ServiceImpl<BaseCategory1Mapper, Ba
 	@Autowired
 	private BaseCategoryViewMapper baseCategoryViewMapper;
 
+	@Autowired
+	private BaseAttributeMapper baseAttributeMapper;
+
+
 
 	/**
 	 * 查询所有1,2,3级分类列表（将子分类封装到categoryChild）
@@ -42,35 +46,47 @@ public class BaseCategoryServiceImpl extends ServiceImpl<BaseCategory1Mapper, Ba
 	public List<JSONObject> getBaseCategoryList() {
 		// 建立空集合 封装分类JSON数据并返回
 		List<JSONObject> jsonObject1List = new ArrayList<>();
-		// 查询所有分类视图集合
+		// 查询分类视图集合
 		List<BaseCategoryView> allCategoryList = baseCategoryViewMapper.selectList(null);
-		// 用map储存一级分类视图数据 并 遍历一级分类视图并封装到分类JSON数据
+		// 用map储存一级分类视图数据并遍历 封装到分类JSON数据
 		allCategoryList.stream().collect(Collectors.groupingBy(BaseCategoryView::getCategory1Id)).forEach((k, v) -> {
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("categoryId", k);
-			jsonObject.put("categoryName",v);
+			jsonObject.put("categoryName",v.get(0).getCategory1Name());
 			jsonObject1List.add(jsonObject);
 
-			// 建立空集合 用map储存2级分类视图数据 并 遍历2级分类视图并封装到分类JSON数据
+			// 建立空集合 用map储存2级分类视图数据并遍历 封装到分类JSON数据
 			ArrayList<JSONObject> jsonObject2List = new ArrayList<>();
 			v.stream().collect(Collectors.groupingBy(BaseCategoryView::getCategory2Id)).forEach((k2, v2) -> {
 				JSONObject jsonObject2 = new JSONObject();
 				jsonObject2.put("categoryId", k2);
-				jsonObject2.put("categoryName",v2);
+				jsonObject2.put("categoryName",v2.get(0).getCategory2Name());
 				jsonObject2List.add(jsonObject2);
 
-				// 建立空集合 用map储存3级分类视图数据 并 遍历3级分类视图并封装到分类JSON数据
+				// 建立空集合 用map储存3级分类视图数据并遍历 封装到分类的JSON数据
 				ArrayList<JSONObject> jsonObjects3List = new ArrayList<>();
 				v2.stream().collect(Collectors.groupingBy(BaseCategoryView::getCategory3Id)).forEach((k3, v3) -> {
 					JSONObject jsonObject3 = new JSONObject();
 					jsonObject3.put("categoryId", k3);
-					jsonObject3.put("categoryName",v3);
+					jsonObject3.put("categoryName",v3.get(0).getCategory3Name());
 					jsonObjects3List.add(jsonObject3);
 				});
+				// 封装3级分类视图数据
 				jsonObject2.put("categoryChild", jsonObjects3List);
 			});
+			// 封装2级分类视图数据
 			jsonObject.put("categoryChild", jsonObject2List);
 		});
 		return jsonObject1List;
+	}
+
+	/**
+	 * 根据1级分类ID查询关联所有标签列表（标签值）
+	 * @param category1Id
+	 * @return
+	 */
+	@Override
+	public List<BaseAttribute> getAttributesByCategory1Id(Long category1Id) {
+		return baseAttributeMapper.getAttributesByCategory1Id(category1Id);
 	}
 }
