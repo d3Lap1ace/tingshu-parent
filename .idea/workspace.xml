@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cf3586d-8352-4055-9649-5e30a9fbeb33" name="Changes" comment="minio">
+    <list default="true" id="1cf3586d-8352-4055-9649-5e30a9fbeb33" name="Changes" comment="album over">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/api/AlbumInfoApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/api/AlbumInfoApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/api/FileUploadApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/api/FileUploadApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/config/MinioConstantProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/config/MinioConstantProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/mapper/AlbumInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/mapper/AlbumInfoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/AlbumInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/AlbumInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/AlbumInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/AlbumInfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/FileUploadServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/FileUploadServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/resources/mapper/AlbumInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/resources/mapper/AlbumInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/api/SearchApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/api/SearchApiController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +198,7 @@
       <workItem from="1722558998818" duration="18250000" />
       <workItem from="1722592871810" duration="16000" />
       <workItem from="1722602718409" duration="2788000" />
-      <workItem from="1722645555192" duration="18620000" />
+      <workItem from="1722645555192" duration="19190000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -238,7 +232,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722605049878</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="album over">
+      <option name="closed" value="true" />
+      <created>1722674414690</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1722674414690</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -248,7 +250,8 @@
     <MESSAGE value="init" />
     <MESSAGE value="Query all categories 1 2 3" />
     <MESSAGE value="minio" />
-    <option name="LAST_COMMIT_MESSAGE" value="minio" />
+    <MESSAGE value="album over" />
+    <option name="LAST_COMMIT_MESSAGE" value="album over" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

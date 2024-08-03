@@ -6,8 +6,10 @@ import com.impower.tingshu.common.result.Result;
 import com.impower.tingshu.common.util.AuthContextHolder;
 import com.impower.tingshu.model.album.AlbumInfo;
 import com.impower.tingshu.query.album.AlbumInfoQuery;
+import com.impower.tingshu.vo.album.AlbumAttributeValueVo;
 import com.impower.tingshu.vo.album.AlbumInfoVo;
 import com.impower.tingshu.vo.album.AlbumListVo;
+import com.impower.tingshu.vo.album.AlbumStatVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +59,6 @@ public class AlbumInfoApiController {
 		return Result.ok();
 	}
 
-
-
-
 	@Operation(summary = "根据ID查询专辑信息")
 	@GetMapping("/albumInfo/getAlbumInfo/{id}")
 	public Result<AlbumInfo> getAlbumInfo(@PathVariable Long id) {
@@ -71,6 +70,24 @@ public class AlbumInfoApiController {
 	public Result updateAlbumInfoById(@PathVariable("id") Long id,@RequestBody AlbumInfo albumInfo){
 		albumInfoService.updateAlbumInfo(albumInfo);
 		return Result.ok();
+	}
+
+	@Operation(summary = "获取当前用户全部专辑列表")
+	@GetMapping("/albumInfo/findUserAllAlbumList")
+	public Result<AlbumListVo> findUserAllAlbumList(){
+		return null;
+	}
+
+	@Operation(summary = "获取专辑属性值列表")
+	@GetMapping("/albumInfo/findAlbumAttributeValue/{albumId}")
+	public Result<AlbumAttributeValueVo> findAlbumAttributeValue(@PathVariable Long albumId){
+		return null;
+	}
+
+	@Operation(summary = "根据专辑ID获取专辑统计信息")
+	@GetMapping("/albumInfo/getAlbumStatVo/{albumId}")
+	public Result<AlbumStatVo> getAlbumStatVo(@PathVariable Long albumId){
+		return null;
 	}
 
 }
