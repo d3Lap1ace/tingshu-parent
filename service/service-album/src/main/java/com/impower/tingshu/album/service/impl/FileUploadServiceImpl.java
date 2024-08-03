@@ -1,6 +1,5 @@
 package com.impower.tingshu.album.service.impl;
 
-import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.util.IdUtil;
@@ -9,16 +8,14 @@ import com.impower.tingshu.album.service.FileUploadService;
 import com.impower.tingshu.common.execption.GuiguException;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
-import io.minio.errors.*;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+
 
 /**
  * @classname tingshu-parent
@@ -32,7 +29,7 @@ import java.security.NoSuchAlgorithmException;
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
 
-    @Autowired
+    @Resource
     private MinioClient minioClient;
     @Autowired
     private MinioConstantProperties minioConstantProperties;
@@ -42,13 +39,13 @@ public class FileUploadServiceImpl implements FileUploadService {
         try {
             BufferedImage bufferedImage = ImageIO.read(multipartFile.getInputStream());
             if (bufferedImage == null) {
-                throw new GuiguException(400,"文件格式有误");
+                throw new GuiguException(400,"The file format is incorrect ");
             }
             //2.业务校验-验证图片大小合法
             int width = bufferedImage.getWidth();
             int height = bufferedImage.getHeight();
-            if(width > 900 || height > 900){
-                throw new GuiguException(400,"文件大小有误！");
+            if(width > 9000 || height > 9000){
+                throw new GuiguException(400,"the file size if incorrent ");
             }
         } catch (IOException e) {
             e.printStackTrace();
