@@ -203,10 +203,12 @@ public class VodServiceImpl implements VodService {
             // 查询审核结果 返回的resp是一个DescribeTaskDetailResponse的实例，与请求对象对应
             TextModerationResponse resp = client.TextModeration(req);
             // 输出json格式的字符串回包
-            String jsonString = AbstractModel.toJsonString(resp);
-            // TODO 解析文字审核结果
+            if (resp != null) {
+                String suggestion = resp.getSuggestion();
+                return suggestion;
+            }
         } catch (TencentCloudSDKException e) {
-            System.out.println(e.toString());
+            log.error("[点播平台]内容安全文本检测异常：{}", e);
         }
         return null;
     }
@@ -222,10 +224,13 @@ public class VodServiceImpl implements VodService {
             TextModerationRequest req = new TextModerationRequest();
             // 返回的resp是一个TextModerationResponse的实例，与请求对象对应
             TextModerationResponse resp = client.TextModeration(req);
-            // TODO 解析图片审核结果
-            System.out.println(AbstractModel.toJsonString(resp));
-        } catch (TencentCloudSDKException e) {
-            System.out.println(e.toString());
+            // 输出json格式的字符串回包
+            if (resp != null) {
+                String suggestion = resp.getSuggestion();
+                return suggestion;
+            }
+        } catch (Exception e) {
+            log.error("[点播平台内容安全图片检测异常：{}", e);
         }
         return null;
     }

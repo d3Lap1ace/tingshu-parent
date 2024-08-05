@@ -20,4 +20,6 @@ public interface TrackInfoMapper extends BaseMapper<TrackInfo> {
      * @return
      */
     Page<TrackListVo> getUserTrackPage(Page<TrackListVo> pageInfo,@Param("vo") TrackInfoQuery trackInfoQuery);
+
+    Page<TrackListVo> getAlbumTrackPage(Page<TrackListVo> pageInfo, Long albumId);
 }

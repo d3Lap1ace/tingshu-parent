@@ -39,7 +39,6 @@ public class AlbumInfoApiController {
 	public Result saveAlbumInfo(@RequestBody AlbumInfoVo albumInfo) {
 //		Long userId = AuthContextHolder.getUserId();
 		Long userId = 1L;
-
 		albumInfoService.saveAlbumInfo(userId,albumInfo);
 		return Result.ok();
 	}
@@ -51,7 +50,8 @@ public class AlbumInfoApiController {
 	public Result<Page<AlbumListVo>> findUserAlbumPage(@PathVariable int page,
 													   @PathVariable int limit,
 													   @RequestBody AlbumInfoQuery albumInfoVoQuery) {
-		Long userId = albumInfoVoQuery.getUserId();
+//		Long userId = albumInfoVoQuery.getUserId();
+		Long userId = 1L;
 		Page<AlbumListVo> pageInfo = new Page<>(page, limit);
 		pageInfo = albumInfoService.getUserAlbumPage(pageInfo,userId,albumInfoVoQuery);
 		return Result.ok(pageInfo);

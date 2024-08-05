@@ -19,16 +19,13 @@
         left join album_stat stat
         on stat.album_id = ai.id
         <where>
-            <if test="vo.userId != null">
-                and ai.user_id = #{userId}
-            </if>
+            ai.user_id = #{userId} and ai.is_deleted = 0
             <if test="vo.status != null and vo.status != ''">
                 and ai.status = #{vo.status}
             </if>
             <if test="vo.albumTitle != null and vo.albumTitle != ''">
                 and ai.album_title like concat('%', #{vo.albumTitle} ,'%')
             </if>
-            and ai.is_deleted = 0
         </where>
         group by ai.id
         order by ai.id desc

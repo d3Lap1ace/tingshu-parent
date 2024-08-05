@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.impower.tingshu.query.album.TrackInfoQuery;
 import com.impower.tingshu.vo.album.TrackInfoVo;
 import com.impower.tingshu.vo.album.TrackListVo;
+import com.impower.tingshu.vo.album.TrackStatVo;
+
+import java.util.List;
 
 public interface TrackInfoService extends IService<TrackInfo> {
 
@@ -47,4 +50,21 @@ public interface TrackInfoService extends IService<TrackInfo> {
      * @param id
      */
     void removeTrackInfo(Long id);
+
+
+    /**
+     * 获取声音统计信息
+     * @param trackId
+     * @return
+     */
+    TrackStatVo getTrackStatVoList(Long trackId);
+
+
+    /**
+     * 查询专辑声音分页列表
+     * @param pageInfo
+     * @param albumId
+     * @return
+     */
+    Page<TrackListVo> getAlbumTrackPage(Page<TrackListVo> pageInfo, Long albumId);
 }

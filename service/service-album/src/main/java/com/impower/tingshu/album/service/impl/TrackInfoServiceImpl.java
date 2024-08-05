@@ -18,12 +18,15 @@ import com.impower.tingshu.query.album.TrackInfoQuery;
 import com.impower.tingshu.vo.album.TrackInfoVo;
 import com.impower.tingshu.vo.album.TrackListVo;
 import com.impower.tingshu.vo.album.TrackMediaInfoVo;
+import com.impower.tingshu.vo.album.TrackStatVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -164,5 +167,39 @@ public class TrackInfoServiceImpl extends ServiceImpl<TrackInfoMapper, TrackInfo
 		// 删除音频
 		vodService.deleteMedia(trackInfo.getMediaFileId());
 
+	}
+
+
+	/**
+	 * 获取声音统计信息
+	 * @param trackId
+	 * @return
+	 */
+	@Override
+	public TrackStatVo getTrackStatVoList(Long trackId) {
+		List<TrackStat> trackStatList = trackStatMapper.selectList(new LambdaQueryWrapper<TrackStat>().eq(TrackStat::getTrackId, trackId));
+		TrackStatVo trackStatVo = new TrackStatVo();
+		if(trackStatList != null && trackStatList.size() > 0){
+			trackStatList.forEach(trackStat -> {
+				switch (trackStat.getStatType()){
+					case SystemConstant.TRACK_STAT_PLAY: trackStatVo.setPlayStatNum(trackStat.getStatNum());break;
+					case SystemConstant.TRACK_STAT_COLLECT: trackStatVo.setCollectStatNum(trackStat.getStatNum());break;
+					case SystemConstant.TRACK_STAT_PRAISE: trackStatVo.setPraiseStatNum(trackStat.getStatNum());break;
+					case SystemConstant.TRACK_STAT_COMMENT: trackStatVo.setCommentStatNum(trackStat.getStatNum());break;
+				}
+			});
+		}
+		return trackStatVo;
+	}
+
+	/**
+	 * 查询专辑声音分页列表
+	 * @param pageInfo
+	 * @param albumId
+	 * @return
+	 */
+	@Override
+	public Page<TrackListVo> getAlbumTrackPage(Page<TrackListVo> pageInfo, Long albumId) {
+		return trackInfoMapper.getAlbumTrackPage(pageInfo,albumId);
 	}
 }

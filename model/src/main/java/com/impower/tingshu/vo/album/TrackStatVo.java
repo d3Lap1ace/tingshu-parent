@@ -7,7 +7,6 @@ import lombok.Data;
 @Schema(description = "用户声音统计信息")
 public class TrackStatVo {
 
-
 	@Schema(description = "播放量")
 	private Integer playStatNum;
 

@@ -44,8 +44,18 @@ public interface VodService {
      */
     String getReviewTaskResult(String mediaFileId);
 
-    String ScanText(String mediaFileId);
+    /**
+     * 文本审核
+     * @param content
+     * @return
+     */
+    String ScanText(String content);
 
+    /**
+     * 图片审核
+     * @param file 图片文件
+     * @return
+     */
     String ScanImages(MultipartFile file);
 
 }
