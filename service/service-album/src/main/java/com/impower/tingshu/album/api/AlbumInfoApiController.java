@@ -37,7 +37,9 @@ public class AlbumInfoApiController {
 	@Operation(summary = "当前用户保存专辑")
 	@PostMapping("/albumInfo/saveAlbumInfo")
 	public Result saveAlbumInfo(@RequestBody AlbumInfoVo albumInfo) {
-		Long userId = AuthContextHolder.getUserId();
+//		Long userId = AuthContextHolder.getUserId();
+		Long userId = 1L;
+
 		albumInfoService.saveAlbumInfo(userId,albumInfo);
 		return Result.ok();
 	}
@@ -59,7 +61,8 @@ public class AlbumInfoApiController {
 	@Operation(summary = "根据ID删除专辑")
 	@DeleteMapping("/albumInfo/removeAlbumInfo/{id}")
 	public Result removeAlbumInfo(@PathVariable Long id) {
-		Long userId = AuthContextHolder.getUserId();
+//		Long userId = AuthContextHolder.getUserId();
+		Long userId = 1L;
 		albumInfoService.removeAlbumInfo(id);
 		return Result.ok();
 	}
@@ -80,7 +83,8 @@ public class AlbumInfoApiController {
 	@Operation(summary = "获取当前用户全部专辑列表")
 	@GetMapping("/albumInfo/findUserAllAlbumList")
 	public Result<List<AlbumInfo>> findUserAllAlbumList(){
-		Long userId = AuthContextHolder.getUserId();
+//		Long userId = AuthContextHolder.getUserId();
+		Long userId = 1L;
 		List<AlbumInfo> list =  albumInfoService.getUserAllAlbumList(userId);
 		return Result.ok(list);
 	}

@@ -1,6 +1,8 @@
 package com.impower.tingshu.album.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.impower.tingshu.album.mapper.AlbumInfoMapper;
 import com.impower.tingshu.album.mapper.TrackInfoMapper;
@@ -55,6 +57,7 @@ public class TrackInfoServiceImpl extends ServiceImpl<TrackInfoMapper, TrackInfo
 		if(StringUtils.isBlank(trackInfo.getCoverUrl())){
 			trackInfo.setCoverUrl(albumInfo.getCoverUrl());
 		}
+
 		//1.3 调用腾讯点播平台获取音视频文件详情信息-得到时长、大小、类型
 		TrackMediaInfoVo trackMediaInfoVo = vodService.getMediaInfo(trackInfo.getMediaFileId());
 		if(trackMediaInfoVo != null){
@@ -64,6 +67,7 @@ public class TrackInfoServiceImpl extends ServiceImpl<TrackInfoMapper, TrackInfo
 		}
 		trackInfoMapper.insert(trackInfo);
 		Long trackInfoId = trackInfo.getId();
+
 		//2.更新专辑信息（声音数量）
 		albumInfo.setIncludeTrackCount(albumInfo.getIncludeTrackCount() + 1);
 		albumInfoMapper.updateById(albumInfo);
@@ -72,7 +76,12 @@ public class TrackInfoServiceImpl extends ServiceImpl<TrackInfoMapper, TrackInfo
 		this.saveTrackStat(trackInfoId, SystemConstant.TRACK_STAT_PRAISE, 0);
 		this.saveTrackStat(trackInfoId, SystemConstant.TRACK_STAT_COLLECT, 0);
 		this.saveTrackStat(trackInfoId, SystemConstant.TRACK_STAT_COMMENT, 0);
-		// TODO 开启音视频任务审核；
+		// 4.调用点播平台发起音频文件审核任务（异步审核）
+		String reviewTrackId = vodService.reviewTrack(trackInfo.getMediaFileId());
+		trackInfo.setReviewTaskId(reviewTrackId);
+		trackInfo.setStatus(SystemConstant.TRACK_STATUS_REVIEW);
+		trackInfoMapper.updateById(trackInfo);
+
 	}
 
 
@@ -102,5 +111,58 @@ public class TrackInfoServiceImpl extends ServiceImpl<TrackInfoMapper, TrackInfo
 	@Override
 	public Page<TrackListVo> getUserTrackPage(Page<TrackListVo> pageInfo, TrackInfoQuery trackInfoQuery) {
 		return trackInfoMapper.getUserTrackPage(pageInfo, trackInfoQuery);
+	}
+
+
+	/**
+	 * 修改声音信息
+	 * @param trackId
+	 * @param trackInfo
+	 */
+	@Override
+	public void updateTrackInfo(Long trackId, TrackInfo trackInfo) {
+		//1.判断音频文件是否变更
+		TrackInfo oldTrackInfo = trackInfoMapper.selectById(trackId);
+		//  根据声音ID查询声音记录得到“旧”的音频文件标识
+		if(!oldTrackInfo.getMediaFileId().equals(trackInfo.getMediaFileId())){
+			TrackMediaInfoVo mediaInfo = vodService.getMediaInfo(trackInfo.getMediaFileId());
+			if(mediaInfo != null){
+				trackInfo.setMediaDuration(BigDecimal.valueOf(mediaInfo.getDuration()));
+				trackInfo.setMediaSize(mediaInfo.getSize());
+				trackInfo.setMediaType(mediaInfo.getType());
+				trackInfo.setStatus(SystemConstant.TRACK_STATUS_NO_PASS);
+				// Todo 再次进行审核
+			}
+			//  从点播平台删除旧的音频文件
+			vodService.deleteMedia(oldTrackInfo.getMediaFileId());
+		}
+		trackInfoMapper.updateById(trackInfo);
+	}
+
+	/**
+	 * 删除声音信息
+	 * @param id
+	 */
+	@Override
+	public void removeTrackInfo(Long id) {
+		// 查询要删除的声音实体
+		TrackInfo trackInfo = trackInfoMapper.selectById(id);
+		// 删除声音表
+		trackInfoMapper.deleteById(id);
+		// 更新声音表排序 orderNUM
+		Integer orderNum = trackInfo.getOrderNum();
+		LambdaUpdateWrapper<TrackInfo> wrapper = new LambdaUpdateWrapper<>();
+		wrapper.eq(TrackInfo::getId,id)
+				.gt(TrackInfo::getOrderNum,orderNum)
+				.setSql("order_num = order_num - 1");
+		// 删除声音统计表
+		trackStatMapper.delete(new LambdaQueryWrapper<TrackStat>().eq(TrackStat::getTrackId,id));
+		// 删除专辑中声音的数量
+		AlbumInfo albumInfo = albumInfoMapper.selectOne(new LambdaQueryWrapper<AlbumInfo>().eq(AlbumInfo::getId, trackInfo.getAlbumId()));
+		albumInfo.setIncludeTrackCount(albumInfo.getIncludeTrackCount() - 1);
+		albumInfoMapper.updateById(albumInfo);
+		// 删除音频
+		vodService.deleteMedia(trackInfo.getMediaFileId());
+
 	}
 }

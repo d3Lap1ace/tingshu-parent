@@ -32,4 +32,19 @@ public interface TrackInfoService extends IService<TrackInfo> {
      * @return
      */
     Page<TrackListVo> getUserTrackPage(Page<TrackListVo> pageInfo, TrackInfoQuery trackInfoQuery);
+
+
+    /**
+     * 修改声音信息
+     * @param trackId
+     * @param trackInfo
+     * @return
+     */
+    void updateTrackInfo(Long trackId,TrackInfo trackInfo);
+
+    /**
+     * 删除声音信息
+     * @param id
+     */
+    void removeTrackInfo(Long id);
 }

@@ -47,6 +47,8 @@ public class FileUploadServiceImpl implements FileUploadService {
             if(width > 9000 || height > 9000){
                 throw new GuiguException(400,"the file size if incorrent ");
             }
+            // TODO 校验图片是否合法
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -72,6 +72,8 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 		this.saveAlbumInfoStat(albumId, SystemConstant.ALBUM_STAT_SUBSCRIBE, 0);
 		this.saveAlbumInfoStat(albumId, SystemConstant.ALBUM_STAT_BUY, 0);
 		this.saveAlbumInfoStat(albumId, SystemConstant.ALBUM_STAT_COMMENT, 0);
+
+		// TODO 校验内容是否安全
 	}
 	/**
 	 * 保存专辑统计信息
@@ -82,11 +84,14 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 	 */
 	@Override
 	public void saveAlbumInfoStat(Long albumId, String statType, int statNum) {
+
 		AlbumStat albumStat = new AlbumStat();
 		albumStat.setAlbumId(albumId);
 		albumStat.setStatType(statType);
 		albumStat.setStatNum(statNum);
 		albumStatMapper.insert(albumStat);
+
+		// TODO 校验内容是否相关
 	}
 
 
@@ -166,6 +171,7 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void updateAlbumInfo(AlbumInfo albumInfo) {
+		// TODO 只有下架的的专辑才能修改
 		// 修改专辑表信息
 		albumInfoMapper.updateById(albumInfo);
 		// 修改专辑标签关系记录
@@ -181,6 +187,7 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 				albumAttributeValueMapper.insert(albumAttributeValue);
 			});
 		}
+		// TODO 修改后内容是否安全
 	}
 
 	/**
