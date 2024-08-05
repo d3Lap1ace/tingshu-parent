@@ -1,10 +1,20 @@
 package com.impower.tingshu.album.api;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.impower.tingshu.album.service.TrackInfoService;
+import com.impower.tingshu.album.service.VodService;
+import com.impower.tingshu.common.result.Result;
+import com.impower.tingshu.common.util.AuthContextHolder;
+import com.impower.tingshu.query.album.TrackInfoQuery;
+import com.impower.tingshu.vo.album.TrackInfoVo;
+import com.impower.tingshu.vo.album.TrackListVo;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 @Tag(name = "声音管理")
 @RestController
@@ -14,6 +24,64 @@ public class TrackInfoApiController {
 
 	@Autowired
 	private TrackInfoService trackInfoService;
+
+	@Autowired
+	private VodService vodService;
+
+	/**
+	 * 音视频文件上腾讯传点播平台
+	 *
+	 * @param file
+	 * @return
+	 */
+	@Operation(summary = "音视频文件上传腾讯传点播平台")
+	@PostMapping("/trackInfo/uploadTrack")
+	public Result<Map<String, String>> uploadTrack(@RequestParam("file") MultipartFile file) {
+		Map<String, String> map = vodService.uploadTrack(file);
+		return Result.ok(map);
+	}
+
+	/**
+	 * 保存声音
+	 *
+	 * @param trackInfoVo
+	 * @return
+	 */
+	@Operation(summary = "保存声音")
+	@PostMapping("/trackInfo/saveTrackInfo")
+	public Result saveTrackInfo(@RequestBody TrackInfoVo trackInfoVo) {
+		Long userId = AuthContextHolder.getUserId();
+		trackInfoService.saveTrackInfo(userId, trackInfoVo);
+		return Result.ok();
+	}
+
+
+	/**
+	 * TODO 该接口登录才能访问
+	 * 条件分页查询声音列表
+	 *
+	 * @param page
+	 * @param limit
+	 * @param trackInfoQuery
+	 * @return
+	 */
+	@Operation(summary = "条件分页查询声音列表")
+	@PostMapping("/trackInfo/findUserTrackPage/{page}/{limit}")
+	public Result<Page<TrackListVo>> getUserTrackPage(
+			@PathVariable int page,
+			@PathVariable int limit,
+			@RequestBody TrackInfoQuery trackInfoQuery
+	) {
+		//1.获取用户ID
+		Long userId = AuthContextHolder.getUserId();
+		trackInfoQuery.setUserId(userId);
+		//2.构建分页对象
+		Page<TrackListVo> pageInfo = new Page<>(page, limit);
+		//3.调用业务层分页查询
+		pageInfo = trackInfoService.getUserTrackPage(pageInfo, trackInfoQuery);
+		//4.响应结果
+		return Result.ok(pageInfo);
+	}
 
 }
 

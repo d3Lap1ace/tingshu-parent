@@ -11,6 +11,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface AlbumInfoMapper extends BaseMapper<AlbumInfo> {
 
-    Page<AlbumListVo> getUserAlbumPage(Page<AlbumListVo> pageInfo, @Param("userId") Long userId, AlbumInfoQuery albumInfoQuery);
+    Page<AlbumListVo> getUserAlbumPage(Page<AlbumListVo> pageInfo, @Param("userId") Long userId,@Param("vo") AlbumInfoQuery albumInfoQuery);
 
 }

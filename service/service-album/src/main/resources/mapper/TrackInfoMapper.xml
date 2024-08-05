@@ -5,5 +5,33 @@
 <mapper namespace="com.impower.tingshu.album.mapper.TrackInfoMapper">
 
 
+    <select id="getUserTrackPage" resultType="com.impower.tingshu.vo.album.TrackListVo">
+        select ti.id trackId,
+               ti.album_id,
+               ti.track_title,
+               ti.cover_url,
+               ti.media_duration,
+               ti.status,
+               max(if(stat_type ='0701',stat_num,0)) playStatNum,
+               max(if(stat_type ='0702',stat_num,0)) collectStatNum,
+               max(if(stat_type ='0703',stat_num,0)) praiseStatNum,
+               max(if(stat_type ='0704',stat_num,0)) commentStatNum
+        from track_stat ts
+                 left join track_info ti on ti.id = ts.track_id
+        <where>
+            <if test="vo.userId != null">
+                and ti.user_id = #{vo.userId}
+            </if>
+            <if test="vo.status != null and vo.status != ''">
+                and ti.status = #{vo.status}
+            </if>
+            <if test="vo.tracktitle != null and vo.trackTitle != ''">
+                and ti.track_title like concat('%',#{vo.trackTitle},'%')
+            </if>
+            and ti.is_deleted = 0
+        </where>
+        group by ti.id
+        order by ti.id desc
+    </select>
 </mapper>
 

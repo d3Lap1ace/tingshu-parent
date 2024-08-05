@@ -20,6 +20,7 @@ import com.impower.tingshu.query.album.AlbumInfoQuery;
 import com.impower.tingshu.vo.album.AlbumAttributeValueVo;
 import com.impower.tingshu.vo.album.AlbumInfoVo;
 import com.impower.tingshu.vo.album.AlbumListVo;
+import com.impower.tingshu.vo.album.AlbumStatVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -180,5 +181,57 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 				albumAttributeValueMapper.insert(albumAttributeValue);
 			});
 		}
+	}
+
+	/**
+	 * 获取当前用户全部专辑列表
+	 * @param userId
+	 * @return
+	 */
+	@Override
+	public List<AlbumInfo> getUserAllAlbumList(Long userId) {
+		List<AlbumInfo> list = albumInfoMapper.selectList(new LambdaQueryWrapper<AlbumInfo>()
+				.eq(AlbumInfo::getUserId, userId)
+				.select(AlbumInfo::getId, AlbumInfo::getAlbumTitle)
+				.last("limit 200")
+				.orderByDesc(AlbumInfo::getUserId));
+		return list;
+	}
+
+	/**
+	 * 获取专辑属性值列表
+	 * @param albumId
+	 * @return
+	 */
+	@Override
+	public List<AlbumAttributeValue> getAlbumAttributeValue(Long albumId) {
+		List<AlbumAttributeValue> list = albumAttributeValueMapper.selectList(new LambdaQueryWrapper<AlbumAttributeValue>()
+				.eq(AlbumAttributeValue::getAlbumId, albumId));
+		return list;
+	}
+
+	/**
+	 * 根据专辑ID获取专辑统计信息
+	 * @param albumId
+	 * @return
+	 */
+	@Override
+	public AlbumStatVo getAlbumStatVo(Long albumId) {
+		List<AlbumStat> albumStatList = albumStatMapper.selectList(new LambdaQueryWrapper<AlbumStat>().eq(AlbumStat::getAlbumId, albumId));
+		AlbumStatVo albumStatVo = new AlbumStatVo();
+		albumStatVo.setAlbumId(albumId);
+		albumStatList.forEach(albumStat -> {
+//			if(albumStat.getStatType()==SystemConstant.ALBUM_STAT_PLAY) albumStatVo.setPlayStatNum(albumStat.getStatNum());
+//			if(albumStat.getStatType()==SystemConstant.ALBUM_STAT_SUBSCRIBE) albumStatVo.setSubscribeStatNum(albumStat.getStatNum());
+//			if(albumStat.getStatType()==SystemConstant.ALBUM_STAT_BUY) albumStatVo.setBuyStatNum(albumStat.getStatNum());
+//			if(albumStat.getStatType()==SystemConstant.ALBUM_STAT_COMMENT) albumStatVo.setCommentStatNum(albumStat.getStatNum());
+			switch (albumStat.getStatType()) {
+				case SystemConstant.ALBUM_STAT_PLAY: albumStatVo.setPlayStatNum(albumStat.getStatNum()); break;
+				case SystemConstant.ALBUM_STAT_SUBSCRIBE:albumStatVo.setSubscribeStatNum(albumStat.getStatNum()); break;
+				case SystemConstant.ALBUM_STAT_BUY:albumStatVo.setBuyStatNum(albumStat.getStatNum()); break;
+				case SystemConstant.ALBUM_STAT_COMMENT:albumStatVo.setCommentStatNum(albumStat.getStatNum()); break;
+			}
+		});
+		return null;
 	}
 }

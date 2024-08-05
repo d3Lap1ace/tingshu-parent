@@ -7,7 +7,19 @@
     <list default="true" id="1cf3586d-8352-4055-9649-5e30a9fbeb33" name="Changes" comment="album over">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/api/AlbumInfoApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/api/AlbumInfoApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/api/SearchApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/api/SearchApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/api/TrackInfoApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/api/TrackInfoApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/config/VodConstantProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/config/VodConstantProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/mapper/AlbumInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/mapper/AlbumInfoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/mapper/AlbumStatMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/mapper/AlbumStatMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/mapper/TrackInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/mapper/TrackInfoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/AlbumInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/AlbumInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/TrackInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/TrackInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/VodService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/VodService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/AlbumInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/AlbumInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/TrackInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/TrackInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/VodServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/VodServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/resources/mapper/AlbumInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/resources/mapper/AlbumInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/resources/mapper/TrackInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/resources/mapper/TrackInfoMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +87,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.ServerGatewayApplication.executor": "Run",
     "Spring Boot.ServiceAccountApplication.executor": "Run",
-    "Spring Boot.ServiceAlbumApplication.executor": "Run",
+    "Spring Boot.ServiceAlbumApplication.executor": "Debug",
     "Spring Boot.ServiceDispatchApplication.executor": "Run",
     "Spring Boot.ServiceOrderApplication.executor": "Run",
     "Spring Boot.ServicePaymentApplication.executor": "Run",
@@ -198,7 +210,8 @@
       <workItem from="1722558998818" duration="18250000" />
       <workItem from="1722592871810" duration="16000" />
       <workItem from="1722602718409" duration="2788000" />
-      <workItem from="1722645555192" duration="19190000" />
+      <workItem from="1722645555192" duration="19377000" />
+      <workItem from="1722818494752" duration="15722000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -240,7 +253,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722674414690</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="album over">
+      <option name="closed" value="true" />
+      <created>1722675006393</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1722675006393</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -1,9 +1,11 @@
 package com.impower.tingshu.album.api;
 
+import cn.hutool.core.lang.Holder;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.impower.tingshu.album.service.AlbumInfoService;
 import com.impower.tingshu.common.result.Result;
 import com.impower.tingshu.common.util.AuthContextHolder;
+import com.impower.tingshu.model.album.AlbumAttributeValue;
 import com.impower.tingshu.model.album.AlbumInfo;
 import com.impower.tingshu.query.album.AlbumInfoQuery;
 import com.impower.tingshu.vo.album.AlbumAttributeValueVo;
@@ -12,8 +14,11 @@ import com.impower.tingshu.vo.album.AlbumListVo;
 import com.impower.tingshu.vo.album.AlbumStatVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.http.impl.cookie.BasicSecureHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "专辑管理")
 @RestController
@@ -44,7 +49,7 @@ public class AlbumInfoApiController {
 	public Result<Page<AlbumListVo>> findUserAlbumPage(@PathVariable int page,
 													   @PathVariable int limit,
 													   @RequestBody AlbumInfoQuery albumInfoVoQuery) {
-		Long userId = AuthContextHolder.getUserId();
+		Long userId = albumInfoVoQuery.getUserId();
 		Page<AlbumListVo> pageInfo = new Page<>(page, limit);
 		pageInfo = albumInfoService.getUserAlbumPage(pageInfo,userId,albumInfoVoQuery);
 		return Result.ok(pageInfo);
@@ -74,20 +79,24 @@ public class AlbumInfoApiController {
 
 	@Operation(summary = "获取当前用户全部专辑列表")
 	@GetMapping("/albumInfo/findUserAllAlbumList")
-	public Result<AlbumListVo> findUserAllAlbumList(){
-		return null;
+	public Result<List<AlbumInfo>> findUserAllAlbumList(){
+		Long userId = AuthContextHolder.getUserId();
+		List<AlbumInfo> list =  albumInfoService.getUserAllAlbumList(userId);
+		return Result.ok(list);
 	}
 
 	@Operation(summary = "获取专辑属性值列表")
 	@GetMapping("/albumInfo/findAlbumAttributeValue/{albumId}")
-	public Result<AlbumAttributeValueVo> findAlbumAttributeValue(@PathVariable Long albumId){
-		return null;
+	public Result<List<AlbumAttributeValue>> findAlbumAttributeValue(@PathVariable Long albumId){
+		List<AlbumAttributeValue> list = albumInfoService.getAlbumAttributeValue(albumId);
+		return Result.ok(list);
 	}
 
 	@Operation(summary = "根据专辑ID获取专辑统计信息")
 	@GetMapping("/albumInfo/getAlbumStatVo/{albumId}")
 	public Result<AlbumStatVo> getAlbumStatVo(@PathVariable Long albumId){
-		return null;
+		AlbumStatVo albumStatVo = albumInfoService.getAlbumStatVo(albumId);
+		return Result.ok(albumStatVo);
 	}
 
 }

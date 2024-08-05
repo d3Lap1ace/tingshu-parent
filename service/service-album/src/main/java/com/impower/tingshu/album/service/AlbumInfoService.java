@@ -1,11 +1,16 @@
 package com.impower.tingshu.album.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.impower.tingshu.model.album.AlbumAttributeValue;
 import com.impower.tingshu.model.album.AlbumInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.impower.tingshu.query.album.AlbumInfoQuery;
+import com.impower.tingshu.vo.album.AlbumAttributeValueVo;
 import com.impower.tingshu.vo.album.AlbumInfoVo;
 import com.impower.tingshu.vo.album.AlbumListVo;
+import com.impower.tingshu.vo.album.AlbumStatVo;
+
+import java.util.List;
 
 public interface AlbumInfoService extends IService<AlbumInfo> {
 
@@ -60,6 +65,24 @@ public interface AlbumInfoService extends IService<AlbumInfo> {
     void updateAlbumInfo(AlbumInfo albumInfo);
 
 
+    /**
+     * 获取当前用户全部专辑列表
+     * @param userId
+     * @return
+     */
+    List<AlbumInfo> getUserAllAlbumList(Long userId);
 
+    /**
+     * 获取专辑属性值列表
+     * @param albumId
+     * @return
+     */
+    List<AlbumAttributeValue> getAlbumAttributeValue(Long albumId);
 
+    /**
+     * 根据专辑ID获取专辑统计信息
+     * @param albumId
+     * @return
+     */
+    AlbumStatVo getAlbumStatVo(Long albumId);
 }

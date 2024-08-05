@@ -1,12 +1,27 @@
 package com.impower.tingshu.album.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.impower.tingshu.album.mapper.AlbumInfoMapper;
 import com.impower.tingshu.album.mapper.TrackInfoMapper;
+import com.impower.tingshu.album.mapper.TrackStatMapper;
 import com.impower.tingshu.album.service.TrackInfoService;
+import com.impower.tingshu.album.service.VodService;
+import com.impower.tingshu.common.constant.SystemConstant;
+import com.impower.tingshu.model.album.AlbumInfo;
 import com.impower.tingshu.model.album.TrackInfo;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.impower.tingshu.model.album.TrackStat;
+import com.impower.tingshu.query.album.TrackInfoQuery;
+import com.impower.tingshu.vo.album.TrackInfoVo;
+import com.impower.tingshu.vo.album.TrackListVo;
+import com.impower.tingshu.vo.album.TrackMediaInfoVo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Slf4j
 @Service
@@ -15,5 +30,77 @@ public class TrackInfoServiceImpl extends ServiceImpl<TrackInfoMapper, TrackInfo
 
 	@Autowired
 	private TrackInfoMapper trackInfoMapper;
+	@Autowired
+	private AlbumInfoMapper albumInfoMapper;
+	@Autowired
+	private VodService vodService;
+    @Autowired
+    private TrackStatMapper trackStatMapper;
 
+	/**
+	 * 保存声音
+	 * @param userId      用户ID
+	 * @param trackInfoVo 声音VO信息
+	 */
+	@Override
+	public void saveTrackInfo(Long userId, TrackInfoVo trackInfoVo) {
+		//1.保存声音信息
+		AlbumInfo albumInfo = albumInfoMapper.selectById(trackInfoVo.getAlbumId());
+		//1.1 将用户提交VO转为PO对象
+		TrackInfo trackInfo = BeanUtil.copyProperties(trackInfoVo, TrackInfo.class);
+		trackInfo.setUserId(userId);
+		trackInfo.setOrderNum(albumInfo.getIncludeTrackCount() + 1);
+		trackInfo.setSource(SystemConstant.TRACK_SOURCE_USER);
+		trackInfo.setStatus(SystemConstant.TRACK_STATUS_NO_PASS);
+		if(StringUtils.isBlank(trackInfo.getCoverUrl())){
+			trackInfo.setCoverUrl(albumInfo.getCoverUrl());
+		}
+		//1.3 调用腾讯点播平台获取音视频文件详情信息-得到时长、大小、类型
+		TrackMediaInfoVo trackMediaInfoVo = vodService.getMediaInfo(trackInfo.getMediaFileId());
+		if(trackMediaInfoVo != null){
+			trackInfo.setMediaDuration(BigDecimal.valueOf(trackMediaInfoVo.getDuration()));
+			trackInfo.setMediaSize(trackMediaInfoVo.getSize());
+			trackInfo.setMediaType(trackMediaInfoVo.getType());
+		}
+		trackInfoMapper.insert(trackInfo);
+		Long trackInfoId = trackInfo.getId();
+		//2.更新专辑信息（声音数量）
+		albumInfo.setIncludeTrackCount(albumInfo.getIncludeTrackCount() + 1);
+		albumInfoMapper.updateById(albumInfo);
+		//3.新增声音统计信息
+		this.saveTrackStat(trackInfoId, SystemConstant.TRACK_STAT_PLAY, 0);
+		this.saveTrackStat(trackInfoId, SystemConstant.TRACK_STAT_PRAISE, 0);
+		this.saveTrackStat(trackInfoId, SystemConstant.TRACK_STAT_COLLECT, 0);
+		this.saveTrackStat(trackInfoId, SystemConstant.TRACK_STAT_COMMENT, 0);
+		// TODO 开启音视频任务审核；
+	}
+
+
+	/**
+	 * 保存声音统计信息
+	 * @param trackId 声音ID
+	 * @param statType 统计类型 0701-播放量 0702-收藏量 0703-点赞量 0704-评论数
+	 * @param num 数值
+	 */
+	@Override
+	public void saveTrackStat(Long id, String statType, int num) {
+		TrackStat trackStat = new TrackStat();
+		trackStat.setTrackId(id);
+		trackStat.setStatType(statType);
+		trackStat.setStatNum(num);
+		trackStatMapper.insert(trackStat);
+	}
+
+
+	/**
+	 * 条件分页查询声音列表
+	 *
+	 * @param pageInfo       分页对象
+	 * @param trackInfoQuery 查询条件对象
+	 * @return
+	 */
+	@Override
+	public Page<TrackListVo> getUserTrackPage(Page<TrackListVo> pageInfo, TrackInfoQuery trackInfoQuery) {
+		return trackInfoMapper.getUserTrackPage(pageInfo, trackInfoQuery);
+	}
 }
