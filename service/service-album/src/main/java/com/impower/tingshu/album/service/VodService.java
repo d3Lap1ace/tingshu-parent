@@ -49,13 +49,13 @@ public interface VodService {
      * @param content
      * @return
      */
-    String ScanText(String content);
+    String scanText(String content);
 
     /**
      * 图片审核
      * @param file 图片文件
      * @return
      */
-    String ScanImages(MultipartFile file);
+    String scanImages(MultipartFile file);
 
 }

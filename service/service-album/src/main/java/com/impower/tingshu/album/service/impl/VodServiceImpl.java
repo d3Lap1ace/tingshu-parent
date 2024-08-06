@@ -192,7 +192,7 @@ public class VodServiceImpl implements VodService {
     }
 
     @Override
-    public String ScanText(String mediaFileId) {
+    public String scanText(String mediaFileId) {
         try{
             // 实例化一个认证对象，入参需要传入腾讯云账户 SecretId 和 SecretKey，此处还需注意密钥对的保密
             Credential cred = new Credential(vodConstantProperties.getSecretId(), vodConstantProperties.getSecretKey());
@@ -214,7 +214,7 @@ public class VodServiceImpl implements VodService {
     }
 
     @Override
-    public String ScanImages(MultipartFile file) {
+    public String scanImages(MultipartFile file) {
         try{
             // 实例化一个认证对象，入参需要传入腾讯云账户 SecretId 和 SecretKey，此处还需注意密钥对的保密
             Credential cred = new Credential(vodConstantProperties.getSecretId(), vodConstantProperties.getSecretKey());

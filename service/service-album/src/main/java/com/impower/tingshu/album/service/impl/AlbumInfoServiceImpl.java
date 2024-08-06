@@ -9,6 +9,7 @@ import com.impower.tingshu.album.mapper.AlbumInfoMapper;
 import com.impower.tingshu.album.mapper.AlbumStatMapper;
 import com.impower.tingshu.album.mapper.TrackInfoMapper;
 import com.impower.tingshu.album.service.AlbumInfoService;
+import com.impower.tingshu.album.service.VodService;
 import com.impower.tingshu.common.constant.SystemConstant;
 import com.impower.tingshu.common.execption.GuiguException;
 import com.impower.tingshu.model.album.AlbumAttributeValue;
@@ -42,6 +43,8 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 	private AlbumStatMapper albumStatMapper;
 	@Autowired
 	private TrackInfoMapper trackInfoMapper;
+	@Autowired
+	private VodService vodService;
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
@@ -73,7 +76,17 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 		this.saveAlbumInfoStat(albumId, SystemConstant.ALBUM_STAT_BUY, 0);
 		this.saveAlbumInfoStat(albumId, SystemConstant.ALBUM_STAT_COMMENT, 0);
 
-		// TODO 校验内容是否安全
+		// 校验内容是否安全
+		String suggestTitle = vodService.scanText(albumInfo.getAlbumTitle());
+		String suggestIntro = vodService.scanText(albumInfo.getAlbumIntro());
+		if ("pass".equals(suggestTitle) && "pass".equals(suggestIntro)) {
+			//专辑标题内容审核无误修改为审核通过
+			albumInfo.setStatus(SystemConstant.ALBUM_STATUS_PASS);
+			albumInfoMapper.updateById(albumInfo);
+			return;
+		}
+		throw new GuiguException(500, "专辑标题或内容存在违规！");
+
 	}
 	/**
 	 * 保存专辑统计信息
@@ -90,8 +103,6 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 		albumStat.setStatType(statType);
 		albumStat.setStatNum(statNum);
 		albumStatMapper.insert(albumStat);
-
-		// TODO 校验内容是否相关
 	}
 
 
@@ -154,6 +165,8 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 	public AlbumInfo getAlbumInfo(Long id) {
 		// 根据id查询相应的专辑实体
 		AlbumInfo albumInfo = albumInfoMapper.selectById(id);
+
+		// // TODO 只有下架的的专辑才能修改
 		if(albumInfo == null) {
 			// 根据专辑id查询专辑标签列表
 			List<AlbumAttributeValue> albumAttributeValuesList = albumAttributeValueMapper.selectList(new LambdaQueryWrapper<AlbumAttributeValue>()
@@ -171,7 +184,6 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void updateAlbumInfo(AlbumInfo albumInfo) {
-		// TODO 只有下架的的专辑才能修改
 		// 修改专辑表信息
 		albumInfoMapper.updateById(albumInfo);
 		// 修改专辑标签关系记录
@@ -187,7 +199,17 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 				albumAttributeValueMapper.insert(albumAttributeValue);
 			});
 		}
-		// TODO 修改后内容是否安全
+		// 修改后内容是否安全
+		String suggestTitle = vodService.scanText(albumInfo.getAlbumTitle());
+		String suggestIntro = vodService.scanText(albumInfo.getAlbumIntro());
+		if ("pass".equals(suggestTitle) && "pass".equals(suggestIntro)) {
+			//专辑标题内容审核无误修改为审核通过
+			albumInfo.setStatus(SystemConstant.ALBUM_STATUS_PASS);
+			albumInfoMapper.updateById(albumInfo);
+			return;
+		}
+		throw new GuiguException(500, "专辑标题或内容存在违规！");
+
 	}
 
 	/**

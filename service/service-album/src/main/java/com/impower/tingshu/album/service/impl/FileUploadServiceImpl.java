@@ -5,6 +5,7 @@ import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.util.IdUtil;
 import com.impower.tingshu.album.config.MinioConstantProperties;
 import com.impower.tingshu.album.service.FileUploadService;
+import com.impower.tingshu.album.service.VodService;
 import com.impower.tingshu.common.execption.GuiguException;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
@@ -33,6 +34,10 @@ public class FileUploadServiceImpl implements FileUploadService {
     private MinioClient minioClient;
     @Autowired
     private MinioConstantProperties minioConstantProperties;
+    @Autowired
+    private VodService vodService;
+
+
     @Override
     public String fileUpload(MultipartFile multipartFile) {
         //1.业务校验验证图片内容格式是否合法
@@ -47,7 +52,13 @@ public class FileUploadServiceImpl implements FileUploadService {
             if(width > 9000 || height > 9000){
                 throw new GuiguException(400,"the file size if incorrent ");
             }
-            // TODO 校验图片是否合法
+            //  校验图片是否合法
+            String suggest = vodService.scanImages(multipartFile);
+            if (!"pass".equals(suggest)) {
+                throw new GuiguException(500, "内容审核失败！");
+            }
+
+
 
         } catch (IOException e) {
             e.printStackTrace();

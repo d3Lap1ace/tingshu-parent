@@ -10,6 +10,7 @@ import com.impower.tingshu.album.mapper.TrackStatMapper;
 import com.impower.tingshu.album.service.TrackInfoService;
 import com.impower.tingshu.album.service.VodService;
 import com.impower.tingshu.common.constant.SystemConstant;
+import com.impower.tingshu.common.execption.GuiguException;
 import com.impower.tingshu.model.album.AlbumInfo;
 import com.impower.tingshu.model.album.TrackInfo;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -135,6 +136,11 @@ public class TrackInfoServiceImpl extends ServiceImpl<TrackInfoMapper, TrackInfo
 				trackInfo.setMediaType(mediaInfo.getType());
 				trackInfo.setStatus(SystemConstant.TRACK_STATUS_NO_PASS);
 				// Todo 再次进行审核
+				String suggestTitle = vodService.scanText(trackInfo.getTrackTitle());
+				String suggestIntro = vodService.scanText(trackInfo.getTrackIntro());
+				if (!"pass".equals(suggestTitle) || !"pass".equals(suggestIntro)) {
+					throw new GuiguException(500, "声音标题或简介内容存在违规！");
+				}
 			}
 			//  从点播平台删除旧的音频文件
 			vodService.deleteMedia(oldTrackInfo.getMediaFileId());
