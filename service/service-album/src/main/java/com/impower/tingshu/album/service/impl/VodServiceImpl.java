@@ -1,5 +1,6 @@
 package com.impower.tingshu.album.service.impl;
 
+import cn.hutool.core.codec.Base64;
 import com.impower.tingshu.album.config.VodConstantProperties;
 import com.impower.tingshu.album.service.VodService;
 import com.impower.tingshu.common.util.UploadFileUtil;
@@ -7,14 +8,14 @@ import com.impower.tingshu.vo.album.TrackMediaInfoVo;
 import com.qcloud.vod.VodUploadClient;
 import com.qcloud.vod.model.VodUploadRequest;
 import com.qcloud.vod.model.VodUploadResponse;
-import com.tencentcloudapi.common.AbstractModel;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
-import com.tencentcloudapi.common.profile.ClientProfile;
-import com.tencentcloudapi.common.profile.HttpProfile;
-import com.tencentcloudapi.tms.v20200713.TmsClient;
-import com.tencentcloudapi.tms.v20200713.models.TextModerationRequest;
-import com.tencentcloudapi.tms.v20200713.models.TextModerationResponse;
+import com.tencentcloudapi.ims.v20201229.ImsClient;
+import com.tencentcloudapi.ims.v20201229.models.ImageModerationRequest;
+import com.tencentcloudapi.ims.v20201229.models.ImageModerationResponse;
+import com.tencentcloudapi.tms.v20201229.TmsClient;
+import com.tencentcloudapi.tms.v20201229.models.TextModerationRequest;
+import com.tencentcloudapi.tms.v20201229.models.TextModerationResponse;
 import com.tencentcloudapi.vod.v20180717.VodClient;
 import com.tencentcloudapi.vod.v20180717.models.*;
 import lombok.extern.slf4j.Slf4j;
@@ -192,7 +193,7 @@ public class VodServiceImpl implements VodService {
     }
 
     @Override
-    public String scanText(String mediaFileId) {
+    public String scanText(String content) {
         try{
             // 实例化一个认证对象，入参需要传入腾讯云账户 SecretId 和 SecretKey，此处还需注意密钥对的保密
             Credential cred = new Credential(vodConstantProperties.getSecretId(), vodConstantProperties.getSecretKey());
@@ -200,12 +201,14 @@ public class VodServiceImpl implements VodService {
             TmsClient client = new TmsClient(cred, vodConstantProperties.getRegion());
             // 实例化一个请求对象,每个接口都会对应一个request对象
             TextModerationRequest req = new TextModerationRequest();
+            String encode = Base64.encode(content);
+            req.setContent(encode);
             // 查询审核结果 返回的resp是一个DescribeTaskDetailResponse的实例，与请求对象对应
             TextModerationResponse resp = client.TextModeration(req);
             // 输出json格式的字符串回包
             if (resp != null) {
                 String suggestion = resp.getSuggestion();
-                return suggestion;
+                return suggestion.toLowerCase();
             }
         } catch (TencentCloudSDKException e) {
             log.error("[点播平台]内容安全文本检测异常：{}", e);
@@ -219,11 +222,13 @@ public class VodServiceImpl implements VodService {
             // 实例化一个认证对象，入参需要传入腾讯云账户 SecretId 和 SecretKey，此处还需注意密钥对的保密
             Credential cred = new Credential(vodConstantProperties.getSecretId(), vodConstantProperties.getSecretKey());
             // 实例化要请求产品的client对象,clientProfile是可选的
-            TmsClient client = new TmsClient(cred, vodConstantProperties.getRegion());
+            ImsClient client = new ImsClient(cred, vodConstantProperties.getRegion());
             // 实例化一个请求对象,每个接口都会对应一个request对象
-            TextModerationRequest req = new TextModerationRequest();
+            ImageModerationRequest req = new ImageModerationRequest();
+            String encode = Base64.encode(file.getInputStream());
+            req.setFileContent(encode);
             // 返回的resp是一个TextModerationResponse的实例，与请求对象对应
-            TextModerationResponse resp = client.TextModeration(req);
+            ImageModerationResponse resp = client.ImageModeration(req);
             // 输出json格式的字符串回包
             if (resp != null) {
                 String suggestion = resp.getSuggestion();

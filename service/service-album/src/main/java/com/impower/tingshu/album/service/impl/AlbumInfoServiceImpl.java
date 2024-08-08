@@ -85,7 +85,7 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 			albumInfoMapper.updateById(albumInfo);
 			return;
 		}
-		throw new GuiguException(500, "专辑标题或内容存在违规！");
+		throw new GuiguException(500, "专辑标题或内容存在违规！title:{},intro:{},suggestTitle,suggestIntro");
 
 	}
 	/**
@@ -250,10 +250,6 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 		AlbumStatVo albumStatVo = new AlbumStatVo();
 		albumStatVo.setAlbumId(albumId);
 		albumStatList.forEach(albumStat -> {
-//			if(albumStat.getStatType()==SystemConstant.ALBUM_STAT_PLAY) albumStatVo.setPlayStatNum(albumStat.getStatNum());
-//			if(albumStat.getStatType()==SystemConstant.ALBUM_STAT_SUBSCRIBE) albumStatVo.setSubscribeStatNum(albumStat.getStatNum());
-//			if(albumStat.getStatType()==SystemConstant.ALBUM_STAT_BUY) albumStatVo.setBuyStatNum(albumStat.getStatNum());
-//			if(albumStat.getStatType()==SystemConstant.ALBUM_STAT_COMMENT) albumStatVo.setCommentStatNum(albumStat.getStatNum());
 			switch (albumStat.getStatType()) {
 				case SystemConstant.ALBUM_STAT_PLAY: albumStatVo.setPlayStatNum(albumStat.getStatNum()); break;
 				case SystemConstant.ALBUM_STAT_SUBSCRIBE:albumStatVo.setSubscribeStatNum(albumStat.getStatNum()); break;

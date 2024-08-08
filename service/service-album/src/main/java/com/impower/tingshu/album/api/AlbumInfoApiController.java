@@ -40,7 +40,6 @@ public class AlbumInfoApiController {
 	@PostMapping("/albumInfo/saveAlbumInfo")
 	public Result saveAlbumInfo(@RequestBody AlbumInfoVo albumInfo) {
 		Long userId = AuthContextHolder.getUserId();
-//		Long userId = 1L;
 		albumInfoService.saveAlbumInfo(userId,albumInfo);
 		return Result.ok();
 	}
@@ -52,8 +51,7 @@ public class AlbumInfoApiController {
 	public Result<Page<AlbumListVo>> findUserAlbumPage(@PathVariable int page,
 													   @PathVariable int limit,
 													   @RequestBody AlbumInfoQuery albumInfoVoQuery) {
-		Long userId = albumInfoVoQuery.getUserId();
-//		Long userId = 1L;
+		Long userId = AuthContextHolder.getUserId();
 		Page<AlbumListVo> pageInfo = new Page<>(page, limit);
 		pageInfo = albumInfoService.getUserAlbumPage(pageInfo,userId,albumInfoVoQuery);
 		return Result.ok(pageInfo);
@@ -64,7 +62,6 @@ public class AlbumInfoApiController {
 	@DeleteMapping("/albumInfo/removeAlbumInfo/{id}")
 	public Result removeAlbumInfo(@PathVariable Long id) {
 		Long userId = AuthContextHolder.getUserId();
-//		Long userId = 1L;
 		albumInfoService.removeAlbumInfo(id);
 		return Result.ok();
 	}
@@ -86,7 +83,6 @@ public class AlbumInfoApiController {
 	@GetMapping("/albumInfo/findUserAllAlbumList")
 	public Result<List<AlbumInfo>> findUserAllAlbumList(){
 		Long userId = AuthContextHolder.getUserId();
-//		Long userId = 1L;
 		List<AlbumInfo> list =  albumInfoService.getUserAllAlbumList(userId);
 		return Result.ok(list);
 	}

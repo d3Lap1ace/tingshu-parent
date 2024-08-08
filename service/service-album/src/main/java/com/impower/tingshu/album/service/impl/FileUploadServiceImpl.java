@@ -54,7 +54,7 @@ public class FileUploadServiceImpl implements FileUploadService {
             }
             //  校验图片是否合法
             String suggest = vodService.scanImages(multipartFile);
-            if (!"pass".equals(suggest)) {
+            if (!"Pass".equals(suggest)) {
                 throw new GuiguException(500, "内容审核失败！");
             }
 

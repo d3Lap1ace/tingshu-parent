@@ -57,7 +57,6 @@ public class TrackInfoApiController {
 	@PostMapping("/trackInfo/saveTrackInfo")
 	public Result saveTrackInfo(@RequestBody TrackInfoVo trackInfoVo) {
 		Long userId = AuthContextHolder.getUserId();
-//		Long userId = 1L;
 		trackInfoService.saveTrackInfo(userId, trackInfoVo);
 		return Result.ok();
 	}
