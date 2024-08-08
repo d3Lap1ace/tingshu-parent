@@ -3,6 +3,7 @@ package com.impower.tingshu.album.api;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.impower.tingshu.album.service.TrackInfoService;
 import com.impower.tingshu.album.service.VodService;
+import com.impower.tingshu.common.login.ImpowerLogin;
 import com.impower.tingshu.common.result.Result;
 import com.impower.tingshu.common.util.AuthContextHolder;
 import com.impower.tingshu.model.album.TrackInfo;
@@ -51,11 +52,12 @@ public class TrackInfoApiController {
 	 * @param trackInfoVo
 	 * @return
 	 */
+	@ImpowerLogin
 	@Operation(summary = "保存声音")
 	@PostMapping("/trackInfo/saveTrackInfo")
 	public Result saveTrackInfo(@RequestBody TrackInfoVo trackInfoVo) {
-//		Long userId = AuthContextHolder.getUserId();
-		Long userId = 1L;
+		Long userId = AuthContextHolder.getUserId();
+//		Long userId = 1L;
 		trackInfoService.saveTrackInfo(userId, trackInfoVo);
 		return Result.ok();
 	}
@@ -70,6 +72,7 @@ public class TrackInfoApiController {
 	 * @param trackInfoQuery
 	 * @return
 	 */
+	@ImpowerLogin
 	@Operation(summary = "条件分页查询声音列表")
 	@PostMapping("/trackInfo/findUserTrackPage/{page}/{limit}")
 	public Result<Page<TrackListVo>> getUserTrackPage(
@@ -107,6 +110,7 @@ public class TrackInfoApiController {
 	 * @param trackInfo
 	 * @return
 	 */
+	@ImpowerLogin
 	@Operation(summary = "修改声音信息")
 	@PutMapping("/trackInfo/updateTrackInfo/{id}")
 	public Result updateTrackInfo(@PathVariable("id") Long trackId, @RequestBody TrackInfo trackInfo) {
@@ -118,6 +122,7 @@ public class TrackInfoApiController {
 	/**
 	 * 删除声音信息
 	 */
+	@ImpowerLogin
 	@Operation(summary = "删除声音信息")
 	@DeleteMapping("/trackInfo/removeTrackInfo/{id}")
 	public Result removeTrackInfo(@PathVariable("id") Long id) {
@@ -145,6 +150,7 @@ public class TrackInfoApiController {
 	 * @param limit
 	 * @return
 	 */
+	@ImpowerLogin
 	@Operation(summary = "查询专辑声音分页列表")
 	@GetMapping("/trackInfo/findAlbumTrackPage/{albumId}/{page}/{limit}")
 	public Result<Page<TrackListVo>> getAlbumTrackPage(@PathVariable Long albumId,

@@ -3,6 +3,7 @@ package com.impower.tingshu.album.api;
 import cn.hutool.core.lang.Holder;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.impower.tingshu.album.service.AlbumInfoService;
+import com.impower.tingshu.common.login.ImpowerLogin;
 import com.impower.tingshu.common.result.Result;
 import com.impower.tingshu.common.util.AuthContextHolder;
 import com.impower.tingshu.model.album.AlbumAttributeValue;
@@ -34,35 +35,36 @@ public class AlbumInfoApiController {
 	 * @param albumInfo
 	 * @return
 	 */
+	@ImpowerLogin
 	@Operation(summary = "当前用户保存专辑")
 	@PostMapping("/albumInfo/saveAlbumInfo")
 	public Result saveAlbumInfo(@RequestBody AlbumInfoVo albumInfo) {
-//		Long userId = AuthContextHolder.getUserId();
-		Long userId = 1L;
+		Long userId = AuthContextHolder.getUserId();
+//		Long userId = 1L;
 		albumInfoService.saveAlbumInfo(userId,albumInfo);
 		return Result.ok();
 	}
 
 
-
+	@ImpowerLogin
 	@Operation(summary = "查看当前用户专辑分页列表")
 	@PostMapping("/albumInfo/findUserAlbumPage/{page}/{limit}")
 	public Result<Page<AlbumListVo>> findUserAlbumPage(@PathVariable int page,
 													   @PathVariable int limit,
 													   @RequestBody AlbumInfoQuery albumInfoVoQuery) {
-//		Long userId = albumInfoVoQuery.getUserId();
-		Long userId = 1L;
+		Long userId = albumInfoVoQuery.getUserId();
+//		Long userId = 1L;
 		Page<AlbumListVo> pageInfo = new Page<>(page, limit);
 		pageInfo = albumInfoService.getUserAlbumPage(pageInfo,userId,albumInfoVoQuery);
 		return Result.ok(pageInfo);
 	}
 
-
+	@ImpowerLogin
 	@Operation(summary = "根据ID删除专辑")
 	@DeleteMapping("/albumInfo/removeAlbumInfo/{id}")
 	public Result removeAlbumInfo(@PathVariable Long id) {
-//		Long userId = AuthContextHolder.getUserId();
-		Long userId = 1L;
+		Long userId = AuthContextHolder.getUserId();
+//		Long userId = 1L;
 		albumInfoService.removeAlbumInfo(id);
 		return Result.ok();
 	}
@@ -72,19 +74,19 @@ public class AlbumInfoApiController {
 	public Result<AlbumInfo> getAlbumInfo(@PathVariable Long id) {
 		return Result.ok(albumInfoService.getAlbumInfo(id));
 	}
-
+	@ImpowerLogin
 	@Operation(summary = "修改专辑")
 	@PutMapping("/albumInfo/updateAlbumInfo/{id}")
 	public Result updateAlbumInfoById(@PathVariable("id") Long id,@RequestBody AlbumInfo albumInfo){
 		albumInfoService.updateAlbumInfo(albumInfo);
 		return Result.ok();
 	}
-
+	@ImpowerLogin
 	@Operation(summary = "获取当前用户全部专辑列表")
 	@GetMapping("/albumInfo/findUserAllAlbumList")
 	public Result<List<AlbumInfo>> findUserAllAlbumList(){
-//		Long userId = AuthContextHolder.getUserId();
-		Long userId = 1L;
+		Long userId = AuthContextHolder.getUserId();
+//		Long userId = 1L;
 		List<AlbumInfo> list =  albumInfoService.getUserAllAlbumList(userId);
 		return Result.ok(list);
 	}

@@ -19,9 +19,7 @@
         from track_stat ts
                  left join track_info ti on ti.id = ts.track_id
         <where>
-            <if test="vo.userId != null">
-                and ti.user_id = #{vo.userId}
-            </if>
+            ti.user_id = #{vo.userId}
             <if test="vo.status != null and vo.status != ''">
                 and ti.status = #{vo.status}
             </if>

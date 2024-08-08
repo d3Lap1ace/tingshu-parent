@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.impower.tingshu.album.service.BaseCategoryService;
 import com.impower.tingshu.common.result.Result;
 import com.impower.tingshu.model.album.BaseAttribute;
+import com.impower.tingshu.model.album.BaseCategory3;
+import com.impower.tingshu.model.album.BaseCategoryView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +49,60 @@ public class BaseCategoryApiController {
 		List<BaseAttribute> lsit = baseCategoryService.getAttributesByCategory1Id(category1Id);
 		return Result.ok(lsit);
 	}
+
+	/**
+	 * 根据三级分类ID查询分类视图
+	 * @param category3Id
+	 * @return
+	 */
+	@Operation(summary = "根据三级分类ID查询分类视图")
+	@GetMapping("/category/getCategoryView/{category3Id}")
+	public Result<BaseCategoryView> getCategoryView(@PathVariable("category3Id") Long category3Id) {
+		BaseCategoryView baseCategoryView = baseCategoryService.getCategoryView(category3Id);
+		return Result.ok(baseCategoryView);
+	}
+
+
+	/**
+	 * 根据一级分类Id查询三级分类列表
+	 */
+	@Operation(summary = "根据一级分类Id查询三级分类列表")
+	@GetMapping("/category/findTopBaseCategory3/{category1Id}")
+	public Result<List<BaseCategory3>> getTopBaseCategory3(@PathVariable("category1Id") Long category1Id) {
+		List<BaseCategory3> list = baseCategoryService.getTopBaseCategory3(category1Id);
+		return Result.ok(list);
+	}
+
+	/**
+	 * 根据一级分类id获取全部分类信息
+	 */
+	@Operation(summary = "根据一级分类id获取全部分类信息")
+	@GetMapping("/category/getBaseCategoryList/{category1Id}")
+	public Result<JSONObject> getBaseCategoryList(@PathVariable Long category1Id){
+		JSONObject jsonObject = baseCategoryService.getBaseCategoryListByCategory1Id(category1Id);
+		return Result.ok(jsonObject);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
