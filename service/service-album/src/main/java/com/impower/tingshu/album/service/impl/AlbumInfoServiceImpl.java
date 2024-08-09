@@ -12,6 +12,8 @@ import com.impower.tingshu.album.service.AlbumInfoService;
 import com.impower.tingshu.album.service.VodService;
 import com.impower.tingshu.common.constant.SystemConstant;
 import com.impower.tingshu.common.execption.GuiguException;
+import com.impower.tingshu.common.rabbit.constant.MqConst;
+import com.impower.tingshu.common.rabbit.service.RabbitService;
 import com.impower.tingshu.model.album.AlbumAttributeValue;
 import com.impower.tingshu.model.album.AlbumInfo;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -45,6 +47,8 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 	private TrackInfoMapper trackInfoMapper;
 	@Autowired
 	private VodService vodService;
+    @Autowired
+    private RabbitService rabbitService;
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
@@ -83,8 +87,12 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 			//专辑标题内容审核无误修改为审核通过
 			albumInfo.setStatus(SystemConstant.ALBUM_STATUS_PASS);
 			albumInfoMapper.updateById(albumInfo);
+			// 发送给rabbitMQ进行上架
+			rabbitService.sendMessage(MqConst.EXCHANGE_ALBUM,MqConst.ROUTING_ALBUM_UPPER,albumInfo.getId());
 			return;
 		}
+		// 发送给rabbitMQ进行下架
+		rabbitService.sendMessage(MqConst.EXCHANGE_ALBUM,MqConst.ROUTING_ALBUM_LOWER,albumInfo.getId());
 		throw new GuiguException(500, "专辑标题或内容存在违规！title:{},intro:{},suggestTitle,suggestIntro");
 
 	}
@@ -150,7 +158,8 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 		albumStatMapper.delete(new LambdaQueryWrapper<AlbumStat>().eq(AlbumStat::getAlbumId, id));
 		// 4.删除专辑标签记录
 		albumAttributeValueMapper.delete(new LambdaQueryWrapper<AlbumAttributeValue>().eq(AlbumAttributeValue::getAlbumId, id));
-
+		// 5. 发送给rabbitMQ进行下架处理
+		rabbitService.sendMessage(MqConst.EXCHANGE_ALBUM,MqConst.ROUTING_ALBUM_LOWER,albumInfo.getId());
 
 	}
 
@@ -206,9 +215,13 @@ public class AlbumInfoServiceImpl extends ServiceImpl<AlbumInfoMapper, AlbumInfo
 			//专辑标题内容审核无误修改为审核通过
 			albumInfo.setStatus(SystemConstant.ALBUM_STATUS_PASS);
 			albumInfoMapper.updateById(albumInfo);
+			// 发送给rabbitMQ进行消息处理
+			rabbitService.sendMessage(MqConst.EXCHANGE_ALBUM, MqConst.ROUTING_ALBUM_UPPER, albumInfo.getId());
 			return;
 		}
-		throw new GuiguException(500, "专辑标题或内容存在违规！");
+		// 发送下架消息
+		rabbitService.sendMessage(MqConst.EXCHANGE_ALBUM, MqConst.ROUTING_ALBUM_LOWER, albumInfo.getId());
+		throw new GuiguException(500, "专辑标题或内容存在违规！suggestTitle:{},suggestIntro:{},suggestTitle,suggestIntro");
 
 	}
 

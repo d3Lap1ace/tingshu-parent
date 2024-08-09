@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author atguigu
  */
-@FeignClient(value = "service-album", fallback = AlbumDegradeFeignClient.class)
+@FeignClient(value = "service-album",path = "/api/album", fallback = AlbumDegradeFeignClient.class)
 public interface AlbumFeignClient {
 
 

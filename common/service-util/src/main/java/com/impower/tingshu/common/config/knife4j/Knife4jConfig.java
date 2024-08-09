@@ -42,7 +42,7 @@ public class Knife4jConfig {
                         .title(appName + "听书API接口文档")
                         .version("1.0")
                         .description("听书API接口文档")
-                        .contact(new Contact().name("atguigu")));
+                        .contact(new Contact().name("impower")));
     }
 
 

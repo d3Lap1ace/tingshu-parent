@@ -10,6 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDegradeFeignClient implements UserFeignClient {
 
+    /**
+     * 根据用户ID查询用户/主播基本信息
+     * @param userId
+     * @return
+     */
     @Override
     public Result<UserInfoVo> getUserInfoVo(Long userId) {
         log.error("[用户服务]提供远程调用getUserInfoVo执行服务降级");

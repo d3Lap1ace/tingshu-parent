@@ -24,12 +24,12 @@ public class SearchApiController {
 
 
     /**
-     * 仅用于接口测试-指定专辑保存到索引库
+     * 指定专辑保存到索引库
      *
      * @param albumId
      * @return
      */
-    @Operation(summary = "仅用于接口测试-指定专辑保存到索引库")
+    @Operation(summary = "指定专辑保存到索引库")
     @GetMapping("/albumInfo/upperAlbum/{albumId}")
     public Result upperAlbum(@PathVariable Long albumId) {
         searchService.upperAlbum(albumId);
@@ -38,11 +38,11 @@ public class SearchApiController {
 
 
     /**
-     * 仅用于接口测试-将指定专辑从索引库删除
+     * 将指定专辑从索引库删除
      * @param albumId
      * @return
      */
-    @Operation(summary = "仅用于接口测试-将指定专辑从索引库删除")
+    @Operation(summary = "将指定专辑从索引库删除")
     @GetMapping("/albumInfo/lowerAlbum/{albumId}")
     public Result lowerAlbum(@PathVariable Long albumId) {
         searchService.lowerAlbum(albumId);

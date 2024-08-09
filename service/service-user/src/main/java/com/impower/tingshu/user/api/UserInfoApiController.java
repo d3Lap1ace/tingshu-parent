@@ -36,5 +36,12 @@ public class UserInfoApiController {
 		return Result.ok(isPaid);
 	}
 
+
+	@Operation(summary = "判断用户是否购买过指定专辑")
+	@GetMapping("/userInfo/isPaidAlbum/{albumId}")
+	public Result isPaidAlbum(@PathVariable("albumId") Long albumId) {
+		return Result.ok();
+	}
+
 }
 

@@ -13,6 +13,10 @@ public interface SearchService {
     void upperAlbum(Long albumId);
 
 
+    /**
+     * 将指定专辑从索引库删除
+     * @param albumId
+     */
     void lowerAlbum(Long albumId);
 
 

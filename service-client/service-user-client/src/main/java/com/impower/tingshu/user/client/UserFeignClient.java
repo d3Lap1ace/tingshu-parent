@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  *
  * @author atguigu
  */
-@FeignClient(value = "service-user", fallback = UserDegradeFeignClient.class)
+@FeignClient(value = "service-user",path = "api/user", fallback = UserDegradeFeignClient.class)
 public interface UserFeignClient {
     /**
      * 根据用户ID查询用户/主播基本信息

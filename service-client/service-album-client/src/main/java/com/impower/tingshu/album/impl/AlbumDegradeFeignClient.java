@@ -17,12 +17,23 @@ import java.util.List;
 public class AlbumDegradeFeignClient implements AlbumFeignClient {
 
 
+    /**
+     * 根据专辑ID查询专辑信息（包含标签列表）
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Result<AlbumInfo> getAlbumInfo(Long id) {
         log.error("[专辑服务]提供远程调用方法getAlbumInfo执行服务降级");
         return null;
     }
 
+    /**
+     * 根据三级分类ID查询分类视图
+     * @param category3Id
+     * @return
+     */
     @Override
     public Result<BaseCategoryView> getCategoryView(Long category3Id) {
         log.error("[专辑服务]提供远程调用方法getCategoryView执行服务降级");

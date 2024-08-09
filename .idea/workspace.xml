@@ -4,25 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cf3586d-8352-4055-9649-5e30a9fbeb33" name="Changes" comment="youhua">
+    <list default="true" id="1cf3586d-8352-4055-9649-5e30a9fbeb33" name="Changes" comment="超纲了">
+      <change afterPath="$PROJECT_DIR$/common/service-util/src/main/java/com/impower/tingshu/common/config/thread/ThreadPoolConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/receiver/SearchReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/service-search/src/test/java/com/impower/tingshu/BatchImportTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/service-util/src/main/java/com/impower/tingshu/common/config/knife4j/Knife4jConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/service-util/src/main/java/com/impower/tingshu/common/config/knife4j/Knife4jConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/impower/tingshu/model/album/AlbumInfoIndex.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/service-client/service-album-client/src/main/java/com/impower/tingshu/album/AlbumFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-client/service-album-client/src/main/java/com/impower/tingshu/album/AlbumFeignClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service-client/service-album-client/src/main/java/com/impower/tingshu/album/impl/AlbumDegradeFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-client/service-album-client/src/main/java/com/impower/tingshu/album/impl/AlbumDegradeFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/api/AlbumInfoApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/api/AlbumInfoApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/api/BaseCategoryApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/api/BaseCategoryApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/mapper/BaseCategory1Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/mapper/BaseCategory1Mapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/BaseCategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/BaseCategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-client/service-user-client/src/main/java/com/impower/tingshu/user/client/UserFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-client/service-user-client/src/main/java/com/impower/tingshu/user/client/UserFeignClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-client/service-user-client/src/main/java/com/impower/tingshu/user/client/impl/UserDegradeFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-client/service-user-client/src/main/java/com/impower/tingshu/user/client/impl/UserDegradeFeignClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/AlbumInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/AlbumInfoServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/BaseCategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-album/src/main/java/com/impower/tingshu/album/service/impl/BaseCategoryServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/api/SearchApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/api/SearchApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/service/AlbumInfoIndexRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/service/AlbumInfoIndexRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/service/SearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/service/SearchService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/service/impl/SearchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-search/src/main/java/com/impower/tingshu/search/service/impl/SearchServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/api/UserInfoApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/api/UserInfoApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/api/UserListenProcessApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/api/UserListenProcessApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/api/VipServiceConfigApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/api/VipServiceConfigApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/service/UserPaidTrackService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/service/UserPaidTrackService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/service/VipServiceConfigService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/service/VipServiceConfigService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/service/impl/UserPaidTrackServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/service/impl/UserPaidTrackServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/service/impl/VipServiceConfigServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/service-user/src/main/java/com/impower/tingshu/user/service/impl/VipServiceConfigServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +31,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -79,48 +79,59 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ServerGatewayApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ServiceAccountApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ServiceAlbumApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.ServiceDispatchApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ServiceOrderApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ServicePaymentApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ServiceSearchApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.ServiceUserApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/be_encode/java/crazyJava&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.13135593&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;2749fba1cb25f28cb9c81a476983c08a&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ServerGatewayApplication.executor": "Run",
+    "Spring Boot.ServiceAccountApplication.executor": "Run",
+    "Spring Boot.ServiceAlbumApplication.executor": "Debug",
+    "Spring Boot.ServiceDispatchApplication.executor": "Run",
+    "Spring Boot.ServiceOrderApplication.executor": "Run",
+    "Spring Boot.ServicePaymentApplication.executor": "Run",
+    "Spring Boot.ServiceSearchApplication.executor": "Debug",
+    "Spring Boot.ServiceUserApplication.executor": "Debug",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/be_encode/java/crazyJava",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.13135593",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "spring.configuration.checksum": "2749fba1cb25f28cb9c81a476983c08a",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql_aurora_aws&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql_aurora_aws"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.impower.tingshu" />
+      <recent name="com.impower.tingshu.search.api" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
@@ -218,7 +229,7 @@
       <workItem from="1722910598501" duration="28436000" />
       <workItem from="1722990722145" duration="14063000" />
       <workItem from="1723081346794" duration="19202000" />
-      <workItem from="1723166337939" duration="1427000" />
+      <workItem from="1723166337939" duration="14582000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -316,7 +327,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723096224063</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="超纲了">
+      <option name="closed" value="true" />
+      <created>1723168017651</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1723168017651</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -332,7 +351,8 @@
     <MESSAGE value="审核" />
     <MESSAGE value="搜索" />
     <MESSAGE value="youhua" />
-    <option name="LAST_COMMIT_MESSAGE" value="youhua" />
+    <MESSAGE value="超纲了" />
+    <option name="LAST_COMMIT_MESSAGE" value="超纲了" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
