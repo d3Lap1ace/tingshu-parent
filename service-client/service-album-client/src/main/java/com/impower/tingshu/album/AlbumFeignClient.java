@@ -39,7 +39,7 @@ public interface AlbumFeignClient {
      * @return
      */
     @GetMapping("/category/getCategoryView/{category3Id}")
-    public BaseCategoryView getCategoryView(Long category3Id);
+    public Result<BaseCategoryView> getCategoryView(@PathVariable Long category3Id);
 
 
     /**

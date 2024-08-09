@@ -1,9 +1,11 @@
 package com.impower.tingshu.album.api;
 
 import com.alibaba.fastjson.JSONObject;
+import com.impower.tingshu.album.mapper.BaseCategory1Mapper;
 import com.impower.tingshu.album.service.BaseCategoryService;
 import com.impower.tingshu.common.result.Result;
 import com.impower.tingshu.model.album.BaseAttribute;
+import com.impower.tingshu.model.album.BaseCategory1;
 import com.impower.tingshu.model.album.BaseCategory3;
 import com.impower.tingshu.model.album.BaseCategoryView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +27,7 @@ public class BaseCategoryApiController {
 
 	@Autowired
 	private BaseCategoryService baseCategoryService;
+
 
 	/**
 	 * 查询所有1,2,3级分类列表（将子分类封装到categoryChild）
@@ -81,6 +84,17 @@ public class BaseCategoryApiController {
 	public Result<JSONObject> getBaseCategoryList(@PathVariable Long category1Id){
 		JSONObject jsonObject = baseCategoryService.getBaseCategoryListByCategory1Id(category1Id);
 		return Result.ok(jsonObject);
+	}
+
+
+	/**
+	 * 查询所有的一级分类信息
+	 */
+	@Operation(summary = "查询所有的一级分类信息")
+	@GetMapping("/category/findAllCategory1")
+	public Result<List<BaseCategory1>> findAllCategory1(){
+		List<BaseCategory1> list = baseCategoryService.getfindAllCategory1();
+		return Result.ok(list);
 	}
 
 }

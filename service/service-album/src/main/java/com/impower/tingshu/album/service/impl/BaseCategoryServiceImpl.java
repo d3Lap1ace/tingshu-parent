@@ -165,4 +165,10 @@ public class BaseCategoryServiceImpl extends ServiceImpl<BaseCategory1Mapper, Ba
 		}
 		return null;
 	}
+
+	@Override
+	public List<BaseCategory1> getfindAllCategory1() {
+		List<BaseCategory1> list = baseCategory1Mapper.selectList(null);
+		return list;
+	}
 }

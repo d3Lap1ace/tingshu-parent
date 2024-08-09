@@ -8,6 +8,7 @@ import com.impower.tingshu.common.result.Result;
 import com.impower.tingshu.common.util.AuthContextHolder;
 import com.impower.tingshu.model.album.AlbumAttributeValue;
 import com.impower.tingshu.model.album.AlbumInfo;
+import com.impower.tingshu.model.album.BaseCategoryView;
 import com.impower.tingshu.query.album.AlbumInfoQuery;
 import com.impower.tingshu.vo.album.AlbumAttributeValueVo;
 import com.impower.tingshu.vo.album.AlbumInfoVo;
@@ -100,6 +101,8 @@ public class AlbumInfoApiController {
 		AlbumStatVo albumStatVo = albumInfoService.getAlbumStatVo(albumId);
 		return Result.ok(albumStatVo);
 	}
+
+
 
 }
 

@@ -2,6 +2,7 @@ package com.impower.tingshu.search.api;
 
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import com.impower.tingshu.common.result.Result;
+import com.impower.tingshu.model.album.BaseCategoryView;
 import com.impower.tingshu.search.service.SearchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -59,6 +60,8 @@ public class SearchApiController {
         List<Map<String, Object>> list = searchService.getCategory3Top6(category1Id);
         return Result.ok(list);
     }
+
+
 
 }
 

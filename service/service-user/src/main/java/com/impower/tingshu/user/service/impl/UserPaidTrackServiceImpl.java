@@ -1,5 +1,6 @@
 package com.impower.tingshu.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.impower.tingshu.model.user.UserPaidTrack;
 import com.impower.tingshu.user.mapper.UserPaidAlbumMapper;
 import com.impower.tingshu.user.mapper.UserPaidTrackMapper;
@@ -14,5 +15,19 @@ public class UserPaidTrackServiceImpl extends ServiceImpl<UserPaidTrackMapper, U
 
 	@Autowired
 	private UserPaidAlbumMapper userPaidAlbumMapper;
+	@Autowired
+	private UserPaidTrackMapper userPaidTrackMapper;
 
+	@Override
+	public int getuserIsPaidTrack(Long userId, Long albumId) {
+		LambdaQueryWrapper<UserPaidTrack> userPaidTrackLambdaQueryWrapper = new LambdaQueryWrapper<>();
+		userPaidTrackLambdaQueryWrapper.eq(UserPaidTrack::getUserId, userId);
+		userPaidTrackLambdaQueryWrapper.eq(UserPaidTrack::getAlbumId, albumId);
+		Long count = userPaidTrackMapper.selectCount(userPaidTrackLambdaQueryWrapper);
+		if (count > 0){
+			return 57;
+		}else {
+			return 56;
+		}
+	}
 }

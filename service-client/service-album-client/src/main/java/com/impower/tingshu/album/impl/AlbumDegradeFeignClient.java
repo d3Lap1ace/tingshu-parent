@@ -8,6 +8,7 @@ import com.impower.tingshu.model.album.BaseCategory3;
 import com.impower.tingshu.model.album.BaseCategoryView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -23,11 +24,10 @@ public class AlbumDegradeFeignClient implements AlbumFeignClient {
     }
 
     @Override
-    public BaseCategoryView getCategoryView(Long category3Id) {
+    public Result<BaseCategoryView> getCategoryView(Long category3Id) {
         log.error("[专辑服务]提供远程调用方法getCategoryView执行服务降级");
         return null;
     }
-
 
 
     /**

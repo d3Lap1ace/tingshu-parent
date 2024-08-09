@@ -48,4 +48,11 @@ public interface BaseCategoryService extends IService<BaseCategory1> {
      * @return
      */
     JSONObject getBaseCategoryListByCategory1Id(Long category1Id);
+
+    /**
+     * 查询所有的一级分类信息
+     * @return
+     */
+    List<BaseCategory1> getfindAllCategory1();
+
 }
